@@ -1,3 +1,5 @@
+// @ts-check
+
 // utils
 function $(selector) {
   return document.querySelector(selector);
@@ -36,7 +38,16 @@ function createSpinnerElement(id) {
 let isDeathLoading = false;
 let isRecoveredLoading = false;
 
+/**
+ * @typedef {object} CovidSummary
+ * @property {Array<object>} Country
+ */
+
 // api
+/**
+ * 
+ * @returns {Promise<CovidSummary>}
+ */
 function fetchCovidSummary() {
   const url = 'https://api.covid19api.com/summary';
   return axios.get(url);
@@ -168,8 +179,8 @@ async function setupData() {
 
 function renderChart(data, labels) {
   var ctx = $('#lineChart').getContext('2d');
-  Chart.defaults.color = '#f5eaea';
-  Chart.defaults.font.family = 'Exo 2';
+  Chart.defaults.global.defaultFontColor = "#f5eaea";
+  Chart.defaults.global.defaultFontFamily = "Exo 2";
   new Chart(ctx, {
     type: 'line',
     data: {
